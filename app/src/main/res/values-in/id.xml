@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Katalog Film</string>
+    <string name="name_movies">Film</string>
+    <string name="name_desc">Deskripsi</string>
+    <string name="name_date">Tanggal</string>
+    <string name="name_genre">Aliran</string>
+    <string name="name_director">Direktur</string>
+
+    <string name="name_cast">Pemain</string>
+
+    <string name="name_tv_show">Acara TV</string>
+
+    <string name="title_activity_bottom_navigation">ActivityBottomNavigation</string>
+
+    <string name="title_home">Utama</string>
+
+    <string name="title_dashboard">dasbor</string>
+
+    <string name="title_notifications">Pemberitahuan</string>
+    <string name="title_movie">Film</string>
+    <string name="title_tv_show">Acara TV</string>
+
+    <string name="hello_blank_fragment">Hai, fragment kosong</string>
+    <string name="change_language">Ganti Bahasa</string>
+</resources>

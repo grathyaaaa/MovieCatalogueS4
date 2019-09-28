@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">MovieCatalogue4</string>
+    <string name="name_movies">Film</string>
+    <string name="name_desc">Description</string>
+    <string name="name_date">Date</string>
+    <string name="name_genre">Genre</string>
+    <string name="name_director">Director</string>
+
+    <string name="name_cast">Cast</string>
+
+    <string name="name_tv_show">TV Show</string>
+
+    <string name="title_activity_bottom_navigation">ActivityBottomNavigation</string>
+
+    <string name="title_home">Home</string>
+
+    <string name="title_dashboard">Dashboard</string>
+
+    <string name="title_notifications">Notifications</string>
+    <string name="title_movie">Movie</string>
+    <string name="title_tv_show">TV Show</string>
+    <string name="change_language">Change Language</string>
+    <string name="desc">Description</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_language">Language</string>
+    <string name="poster">poster</string>
+    <string name="title_favorited">Favorite</string>
+    <string name="add_to_favorite">Add to favorite</string>
+    <string name="add_failed">Failed add to favorite</string>
+    <string name="delete_from_favorite">Remove From Favorite</string>
+    <string name="delete_failed">Failed remove From Favorite</string>
+    <string name="detail_movie">Detail Movie</string>
+
+</resources>
