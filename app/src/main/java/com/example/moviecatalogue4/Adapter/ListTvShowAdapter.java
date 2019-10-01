@@ -1,4 +1,4 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.moviecatalogue4.Activity.DetailsTvShowActivity;
+import com.example.moviecatalogue4.Api.Api;
+import com.example.moviecatalogue4.R;
+import com.example.moviecatalogue4.Model.TvShow;
 
 import java.util.ArrayList;
 

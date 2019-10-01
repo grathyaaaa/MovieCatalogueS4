@@ -1,4 +1,4 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Network;
 
 import java.io.IOException;
 import java.io.InputStream;

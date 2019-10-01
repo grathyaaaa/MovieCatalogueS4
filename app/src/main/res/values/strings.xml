@@ -32,5 +32,8 @@
     <string name="delete_from_favorite">Remove From Favorite</string>
     <string name="delete_failed">Failed remove From Favorite</string>
     <string name="detail_movie">Detail Movie</string>
+    <string name="search">Search</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

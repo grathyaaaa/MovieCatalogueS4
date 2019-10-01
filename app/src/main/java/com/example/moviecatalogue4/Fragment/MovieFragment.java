@@ -1,4 +1,4 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Fragment;
 
 
 import android.os.AsyncTask;
@@ -12,9 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
+
+import com.example.moviecatalogue4.Api.Api;
+import com.example.moviecatalogue4.Adapter.ListMovieAdapter;
+import com.example.moviecatalogue4.Model.Movie;
+import com.example.moviecatalogue4.Network.NetworkUtils;
+import com.example.moviecatalogue4.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,11 +37,13 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MovieFragment extends Fragment {
+public class MovieFragment extends Fragment implements SearchView.OnQueryTextListener{
     private RecyclerView recyclerViewMovie;
     private ProgressBar progressBarMovie;
-    private ArrayList<Movie> listMovies = new ArrayList<>();
+    private ArrayList<Movie> listMovies;
+    private ArrayList<Movie> tempMovie;
     private ListMovieAdapter listMovieAdapter;
+    private SearchView searchView;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -49,10 +60,20 @@ public class MovieFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search, menu);
+        searchView = (SearchView)  menu.findItem(R.id.action_search).getActionView();
+        searchView.setQueryHint("Search...");
+        searchView.setOnQueryTextListener(this);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        setHasOptionsMenu(true);
         listMovies = new ArrayList<>();
+        tempMovie = new ArrayList<>();
 
         recyclerViewMovie.setLayoutManager(new LinearLayoutManager(getActivity()));
         listMovieAdapter = new ListMovieAdapter(getActivity());
@@ -71,6 +92,13 @@ public class MovieFragment extends Fragment {
         showRecyclerList();
     }
 
+    private void showRecyclerList() {
+        recyclerViewMovie.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listMovieAdapter = new ListMovieAdapter(getActivity());
+        listMovieAdapter.setListMovie(listMovies);
+        recyclerViewMovie.setAdapter(listMovieAdapter);
+    }
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -82,7 +110,28 @@ public class MovieFragment extends Fragment {
         new MovieAsyncTask().execute(url);
     }
 
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        searchView.clearFocus();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (!newText.isEmpty()){
+            Log.d("query",newText);
+            listMovies.clear();
+            new MovieAsyncTask().execute(Api.getMovie(newText));
+        } else {
+            listMovies.clear();
+            listMovies.addAll(tempMovie);
+        }
+        listMovieAdapter.setListMovie(listMovies);
+        return true;
+    }
     private class MovieAsyncTask extends AsyncTask<URL, Void, String> {
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -101,15 +150,15 @@ public class MovieFragment extends Fragment {
             }
             return result;
         }
-
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             recyclerViewMovie.setVisibility(View.VISIBLE);
             progressBarMovie.setVisibility(View.GONE);
-            Log.e("data now", s);
+            Log.d("data now", s);
 
             try {
+                tempMovie.clear();
                 JSONObject jsonObject = new JSONObject(s);
                 JSONArray jsonArray = jsonObject.getJSONArray("results");
 
@@ -118,17 +167,13 @@ public class MovieFragment extends Fragment {
                     Movie movie = new Movie(object);
                     listMovies.add(movie);
                 }
+                tempMovie.addAll(listMovies);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            listMovieAdapter.setListMovie(listMovies);
         }
-    }
 
-    private void showRecyclerList() {
-        recyclerViewMovie.setLayoutManager(new LinearLayoutManager(getActivity()));
-        listMovieAdapter = new ListMovieAdapter(getActivity());
-        listMovieAdapter.setListMovie(listMovies);
-        recyclerViewMovie.setAdapter(listMovieAdapter);
     }
 
 }

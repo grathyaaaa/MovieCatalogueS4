@@ -1,4 +1,4 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 
 import android.content.Context;
 
+import com.example.moviecatalogue4.R;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -23,7 +25,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
     private Context context;
 
-    TabAdapter(FragmentManager fm, Context context) {
+    public TabAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }

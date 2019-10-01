@@ -1,4 +1,4 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Fragment;
 
 
 import android.os.AsyncTask;
@@ -12,9 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
+
+import com.example.moviecatalogue4.Api.Api;
+import com.example.moviecatalogue4.Adapter.ListTvShowAdapter;
+import com.example.moviecatalogue4.Network.NetworkUtils;
+import com.example.moviecatalogue4.R;
+import com.example.moviecatalogue4.Model.TvShow;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,11 +37,14 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TvShowFragment extends Fragment {
+public class TvShowFragment extends Fragment implements SearchView.OnQueryTextListener {
     private RecyclerView recyclerViewTvShow;
     private ProgressBar progressBarTvShow;
-    private ArrayList<TvShow> listTvShow = new ArrayList<>();
+    private ArrayList<TvShow> listTvShow;
+    private ArrayList<TvShow> tempTvShow;
     private ListTvShowAdapter listTvShowAdapter;
+    private SearchView searchView;
+
 
     public TvShowFragment() {
         // Required empty public constructor
@@ -49,10 +61,20 @@ public class TvShowFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search, menu);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setQueryHint("Search...");
+        searchView.setOnQueryTextListener(this);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        setHasOptionsMenu(true);
         listTvShow = new ArrayList<>();
+        tempTvShow = new ArrayList<>();
 
         recyclerViewTvShow.setLayoutManager(new LinearLayoutManager(getActivity()));
         listTvShowAdapter = new ListTvShowAdapter(getActivity());
@@ -71,6 +93,13 @@ public class TvShowFragment extends Fragment {
         showRecyclerList();
     }
 
+    private void showRecyclerList() {
+        recyclerViewTvShow.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listTvShowAdapter = new ListTvShowAdapter(getActivity());
+        listTvShowAdapter.setListTvShow(listTvShow);
+        recyclerViewTvShow.setAdapter(listTvShowAdapter);
+    }
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -84,7 +113,32 @@ public class TvShowFragment extends Fragment {
         new TvShowFragment.TvShowAsyncTask().execute(url);
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        searchView.clearFocus();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (!newText.isEmpty()){
+            listTvShow.clear();
+            newText = newText.toLowerCase();
+            for (int i =0; i<tempTvShow.size(); i++){
+                String title = tempTvShow.get(i).getName().toLowerCase();
+                if (title.contains(newText)){
+                    listTvShow.add(tempTvShow.get(i));
+                }
+            }
+        } else {
+            listTvShow.clear();
+            listTvShow.addAll(tempTvShow);
+        }
+        listTvShowAdapter.setListTvShow(listTvShow);
+        return true;
+    }
     private class TvShowAsyncTask extends AsyncTask<URL, Void, String> {
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -103,7 +157,6 @@ public class TvShowFragment extends Fragment {
             }
             return result;
         }
-
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -112,6 +165,7 @@ public class TvShowFragment extends Fragment {
             Log.e("data now", s);
 
             try {
+                tempTvShow.clear();
                 JSONObject jsonObject = new JSONObject(s);
                 JSONArray jsonArray = jsonObject.getJSONArray("results");
 
@@ -120,16 +174,12 @@ public class TvShowFragment extends Fragment {
                     TvShow tvShow = new TvShow(object);
                     listTvShow.add(tvShow);
                 }
+                tempTvShow.addAll(listTvShow);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            listTvShowAdapter.setListTvShow(listTvShow);
         }
-    }
 
-    private void showRecyclerList() {
-        recyclerViewTvShow.setLayoutManager(new LinearLayoutManager(getActivity()));
-        listTvShowAdapter = new ListTvShowAdapter(getActivity());
-        listTvShowAdapter.setListTvShow(listTvShow);
-        recyclerViewTvShow.setAdapter(listTvShowAdapter);
     }
 }

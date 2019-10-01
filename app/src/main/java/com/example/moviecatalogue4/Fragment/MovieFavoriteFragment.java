@@ -1,4 +1,4 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Fragment;
 
 
 import android.os.Bundle;
@@ -16,6 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.moviecatalogue4.Adapter.ListMovieAdapter;
+import com.example.moviecatalogue4.Model.Movie;
+import com.example.moviecatalogue4.Model.MovieFavorite;
+import com.example.moviecatalogue4.R;
+
 import java.util.ArrayList;
 
 
@@ -28,7 +33,7 @@ public class MovieFavoriteFragment extends Fragment {
     private ArrayList<Movie> movieArrayList;
     private ListMovieAdapter listMovieAdapter;
     private RealmResults<MovieFavorite> movieFavorites;
-    private Realm realm;
+    public static Realm realm;
 
     public MovieFavoriteFragment() {
         // Required empty public constructor
@@ -88,5 +93,4 @@ public class MovieFavoriteFragment extends Fragment {
         recyclerViewFav.setAdapter(listMovieAdapter);
         movieFavorites = realm.where(MovieFavorite.class).findAll();
     }
-
 }

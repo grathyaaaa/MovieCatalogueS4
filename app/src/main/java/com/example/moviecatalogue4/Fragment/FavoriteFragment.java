@@ -1,4 +1,4 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Fragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.moviecatalogue4.R;
+import com.example.moviecatalogue4.Adapter.TabAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class FavoriteFragment extends Fragment {

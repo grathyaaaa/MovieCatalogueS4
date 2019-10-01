@@ -1,9 +1,9 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Model;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class MovieFavorite extends RealmObject {
+public class TvShowFavorite extends RealmObject {
     @PrimaryKey
     private String id;
     private String title;
@@ -59,6 +59,4 @@ public class MovieFavorite extends RealmObject {
     public void setPoster(String poster) {
         this.poster = poster;
     }
-
-
 }

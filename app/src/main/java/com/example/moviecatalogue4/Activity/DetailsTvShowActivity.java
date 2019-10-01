@@ -1,4 +1,4 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -16,9 +16,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.moviecatalogue4.Api.Api;
+import com.example.moviecatalogue4.R;
+import com.example.moviecatalogue4.Model.TvShow;
+import com.example.moviecatalogue4.Model.TvShowFavorite;
 
 public class DetailsTvShowActivity extends AppCompatActivity {
 
+    public static final String EXTRA_ITEM = "extraItem";
     TextView tvName;
     TextView tvOverview;
     TextView tvReleaseDate;
@@ -85,28 +90,25 @@ public class DetailsTvShowActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_favorite:
-                if (isFavorite) {
-                    boolean delete = removeFromFavoriteTvShow();
-                    if (delete) {
-                        item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_24dp));
-                        Toast.makeText(this, R.string.delete_from_favorite, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, R.string.delete_failed, Toast.LENGTH_SHORT).show();
-                    }
+        if (item.getItemId() == R.id.menu_favorite) {
+            if (isFavorite) {
+                boolean delete = removeFromFavoriteTvShow();
+                if (delete) {
+                    item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_24dp));
+                    Toast.makeText(this, R.string.delete_from_favorite, Toast.LENGTH_SHORT).show();
                 } else {
-                    isFavorite = addToFavoriteTvShow();
-                    if (isFavorite) {
-                        item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_red_24dp));
-                        Toast.makeText(this, R.string.add_to_favorite, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, R.string.add_failed, Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(this, R.string.delete_failed, Toast.LENGTH_SHORT).show();
                 }
-                return true;
-            default:
-                break;
+            } else {
+                isFavorite = addToFavoriteTvShow();
+                if (isFavorite) {
+                    item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_red_24dp));
+                    Toast.makeText(this, R.string.add_to_favorite, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, R.string.add_failed, Toast.LENGTH_SHORT).show();
+                }
+            }
+            return true;
         }
         return false;
     }

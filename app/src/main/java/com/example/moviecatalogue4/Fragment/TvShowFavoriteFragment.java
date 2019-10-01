@@ -1,4 +1,4 @@
-package com.example.moviecatalogue4;
+package com.example.moviecatalogue4.Fragment;
 
 
 import android.os.Bundle;
@@ -15,6 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import com.example.moviecatalogue4.Adapter.ListTvShowAdapter;
+import com.example.moviecatalogue4.R;
+import com.example.moviecatalogue4.Model.TvShow;
+import com.example.moviecatalogue4.Model.TvShowFavorite;
 
 import java.util.ArrayList;
 
