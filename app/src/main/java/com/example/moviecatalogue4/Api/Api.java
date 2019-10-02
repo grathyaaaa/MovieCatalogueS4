@@ -14,6 +14,7 @@ public class Api {
     private static final String KEY = "api_key";
     private static final String SIZE = "w185";
     private static final String DISCOVER = "discover";
+    private static final String SEARCH = "search";
     private static final String MOVIE = "movie";
 
 
@@ -33,13 +34,13 @@ public class Api {
         }
         return url;
     }
-    public static URL getMovie(String query) {
-        //https://api.themoviedb.org/3/discover/movie?api_key=<<api_key>>&language=en-US
+    public static URL searchMovie(String query) {
+        //https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&language=en-US&query=<<query>>
         Uri uri = Uri.parse(BASE_URL).buildUpon()
-                .appendPath(DISCOVER)
+                .appendPath(SEARCH)
                 .appendPath(MOVIE)
                 .appendQueryParameter(KEY, API_KEY)
-                .appendQueryParameter("query", "z")
+                .appendQueryParameter("query", query)
                 .build();
 
         URL url = null;
