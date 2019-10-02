@@ -122,10 +122,10 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
         if (!newText.isEmpty()){
             Log.d("query",newText);
             listMovies.clear();
-            new MovieAsyncTask().execute(Api.getMovie(newText));
+            new MovieAsyncTask().execute(Api.searchMovie(newText));
         } else {
             listMovies.clear();
-            listMovies.addAll(tempMovie);
+            new MovieAsyncTask().execute(Api.getMovie());
         }
         listMovieAdapter.setListMovie(listMovies);
         return true;
@@ -155,8 +155,6 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
             super.onPostExecute(s);
             recyclerViewMovie.setVisibility(View.VISIBLE);
             progressBarMovie.setVisibility(View.GONE);
-            Log.d("data now", s);
-
             try {
                 tempMovie.clear();
                 JSONObject jsonObject = new JSONObject(s);
