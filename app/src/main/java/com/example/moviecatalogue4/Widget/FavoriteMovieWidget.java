@@ -47,7 +47,7 @@ public class FavoriteMovieWidget extends AppWidgetProvider {
         super.onReceive(context, intent);
         if (intent.getAction() != null) {
             if (intent.getAction().equals(TOAST_ACTION)) {
-                int viewIndex = intent.getIntExtra(FavoriteMovieWidget.EXTRA_ITEM, -1);
+                int viewIndex = intent.getIntExtra(FavoriteMovieWidget.EXTRA_ITEM, 0);
                 Toast.makeText(context, "Touched View" + viewIndex, Toast.LENGTH_SHORT).show();
             }
         }

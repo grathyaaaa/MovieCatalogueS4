@@ -78,6 +78,7 @@ public class MovieFavoriteFragment extends Fragment {
                 dummy.setDate(movieFavorites.get(i).getDate());
                 dummy.setLanguage(movieFavorites.get(i).getLanguage());
                 dummy.setPoster(movieFavorites.get(i).getPoster());
+                dummy.setBackdrop(movieFavorites.get(i).getBackdrop());
                 movieArrayList.add(dummy);
             }
         }

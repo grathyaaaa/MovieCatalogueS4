@@ -109,7 +109,6 @@ public class TvShowFragment extends Fragment implements SearchView.OnQueryTextLi
 
     private void loadData(){
         URL url = Api.getTvShow();
-        Log.e("url", url.toString());
         new TvShowFragment.TvShowAsyncTask().execute(url);
     }
 
@@ -122,21 +121,17 @@ public class TvShowFragment extends Fragment implements SearchView.OnQueryTextLi
     @Override
     public boolean onQueryTextChange(String newText) {
         if (!newText.isEmpty()){
+            Log.d("query", newText);
             listTvShow.clear();
-            newText = newText.toLowerCase();
-            for (int i =0; i<tempTvShow.size(); i++){
-                String title = tempTvShow.get(i).getName().toLowerCase();
-                if (title.contains(newText)){
-                    listTvShow.add(tempTvShow.get(i));
-                }
-            }
+            new TvShowAsyncTask().execute(Api.searchTvShow(newText));
         } else {
             listTvShow.clear();
-            listTvShow.addAll(tempTvShow);
+            new TvShowAsyncTask().execute(Api.getTvShow());
         }
         listTvShowAdapter.setListTvShow(listTvShow);
         return true;
     }
+
     private class TvShowAsyncTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -157,6 +152,7 @@ public class TvShowFragment extends Fragment implements SearchView.OnQueryTextLi
             }
             return result;
         }
+
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -168,7 +164,6 @@ public class TvShowFragment extends Fragment implements SearchView.OnQueryTextLi
                 tempTvShow.clear();
                 JSONObject jsonObject = new JSONObject(s);
                 JSONArray jsonArray = jsonObject.getJSONArray("results");
-
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
                     TvShow tvShow = new TvShow(object);
@@ -180,6 +175,5 @@ public class TvShowFragment extends Fragment implements SearchView.OnQueryTextLi
             }
             listTvShowAdapter.setListTvShow(listTvShow);
         }
-
     }
 }

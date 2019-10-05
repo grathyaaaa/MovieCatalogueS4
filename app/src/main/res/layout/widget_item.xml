@@ -11,6 +11,7 @@
         android:id="@+id/fav_img"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
+        android:contentDescription="@string/poster"
         tools:srcCompat = "@tools:sample/avatars"/>
 
     <TextView
@@ -19,9 +20,10 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="@string/title_movie"
-        android:background="@color/colorAccent"
+        android:background="@color/transparent"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true"/>
 
 

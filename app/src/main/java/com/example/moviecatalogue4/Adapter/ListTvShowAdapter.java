@@ -54,6 +54,7 @@ public class ListTvShowAdapter extends RecyclerView.Adapter <ListTvShowAdapter.T
     public void onBindViewHolder(@NonNull ListTvShowAdapter.TvShowViewHolder ViewHolder, final int position) {
         ViewHolder.txtName.setText(getListTvShow().get(position).getName());
         ViewHolder.txtOverview.setText(getListTvShow().get(position).getOverview());
+        ViewHolder.txtDate.setText(getListTvShow().get(position).getRelease_date());
         String poster_path = getListTvShow().get(position).getPoster();
         Glide.with(context).load(Api.getPoster(poster_path))
                 .apply(new RequestOptions().override(70, 100))
@@ -78,12 +79,14 @@ public class ListTvShowAdapter extends RecyclerView.Adapter <ListTvShowAdapter.T
     class TvShowViewHolder extends RecyclerView.ViewHolder {
         TextView txtName;
         TextView txtOverview;
+        TextView txtDate;
         ImageView imgPoster;
 
         TvShowViewHolder(@NonNull View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txt_title);
             txtOverview = itemView.findViewById(R.id.txt_description);
+            txtDate = itemView.findViewById(R.id.txt_date);
             imgPoster = itemView.findViewById(R.id.img_poster);
         }
     }

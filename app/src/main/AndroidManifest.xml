@@ -9,16 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".Activity.SetReminderActivity"
+            android:label="Settings" />
+
+        <service
+            android:name=".Widget.FavoriteWidgetService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <activity android:name=".Fragment.FavoriteFragment" />
-        <activity android:name=".Activity.DetailsTvShowActivity" />
-        <activity android:name=".Activity.DetailsMovieActivity" />
+        <activity android:name=".Activity.DetailsTvShowActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activity.DetailsMovieActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".Activity.BottomNavigationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- StackWidget Provider -->
+        </activity>
+
         <receiver android:name=".Widget.FavoriteMovieWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -29,18 +43,34 @@
                 android:resource="@xml/favorite_movie_widget_info" />
         </receiver>
 
-        <service
-            android:name=".Widget.FavoriteWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS" />
-    </application>
-    <permission
-        android:name="com.example.moviecatalogue4.READ_DATABASE"
-        android:protectionLevel="normal" />
+        <receiver
+            android:name=".reminder.ReleaseAlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
 
+        <receiver
+            android:name=".reminder.DailyAlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <provider
+            android:authorities="com.example.moviecatalogue4"
+            android:name=".MovieProvider"
+            android:exported="true"
+            android:readPermission="com.example.catalogue4.READ_DATABASE"
+            android:writePermission="com.example.catalogue.WRITE_DATABASE"/>
+
+    </application>
     <permission
         android:name="com.example.moviecatalogue4.WRITE_DATABASE"
         android:protectionLevel="normal" />
 
+    <permission
+        android:name="com.example.moviecatalogue4.READ_DATABASE"
+        android:protectionLevel="normal" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
 </manifest>

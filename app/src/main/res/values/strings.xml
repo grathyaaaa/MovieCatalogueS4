@@ -22,7 +22,6 @@
     <string name="change_language">Change Language</string>
     <string name="desc">Description</string>
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name_language">Language</string>
     <string name="poster">poster</string>
@@ -35,5 +34,43 @@
     <string name="search">Search</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="title_daily">Daily Reminder</string>
+    <string name="no_data">No data</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="daily_reminder_on">Daily Reminder On</string>
+    <string name="daily_reminder_off">Daily Reminder Off</string>
+    <string name="switching_on_release_reminder">Switching on Release Reminder</string>
+    <string name="release_reminder_on">Release Reminder On</string>
+    <string name="release_reminder_off">Release Reminder Off</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="enable_daily_reminder">Enable Daily Reminder</string>
+    <string name="enable_release_reminder">Enable New Release Reminder</string>
+    <string name="key_daily_remainder">daily_reminder</string>
+    <string name="key_release_remainder">release_reminder</string>
+    <string name="message_daily_remainder">Movie reminder today</string>
+    <string name="setting_reminder">Reminder Setting</string>
+    <string name="rating">Rating</string>
+    <string name="release_date">Release Date</string>
+    <string name="original_language">Original Language</string>
+    <string name="genre">Genre</string>
+    <string name="overview">Overview</string>
+    <string name="popularity">Popularity</string>
+    <string name="vote_average">Vote Average</string>
+    <string name="vote_count">Vote Count</string>
 
 </resources>

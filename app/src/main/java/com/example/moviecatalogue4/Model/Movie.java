@@ -13,6 +13,62 @@ public class Movie implements Parcelable {
     private String date;
     private String language;
     private String poster;
+    private String backdrop;
+    private String releaseDate;
+    private String popularity;
+    private String voteCount;
+    private double voteAverage;
+    private double rating;
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public String getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(String popularity) {
+        this.popularity = popularity;
+    }
+
+    public String getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(String voteCount) {
+        this.voteCount = voteCount;
+    }
+
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public String getBackdrop() {
+        return backdrop;
+    }
+
+    public void setBackdrop(String backdrop) {
+        this.backdrop = backdrop;
+    }
+
 
     public String getId() {
         return id;
@@ -78,6 +134,14 @@ public class Movie implements Parcelable {
         dest.writeString(description);
         dest.writeString(poster);
         dest.writeString(language);
+        dest.writeString(releaseDate);
+        dest.writeString(backdrop);
+        dest.writeString(voteCount);
+        dest.writeDouble(voteAverage);
+        dest.writeString(popularity);
+        dest.writeDouble(rating);
+
+
     }
 
     public Movie(Parcel in) {
@@ -87,6 +151,13 @@ public class Movie implements Parcelable {
         description = in.readString();
         poster = in.readString();
         language = in.readString();
+        releaseDate = in.readString();
+        backdrop = in.readString();
+        popularity = in.readString();
+        voteAverage = in.readDouble();
+        voteCount = in.readString();
+        rating = in.readDouble();
+
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -109,6 +180,11 @@ public class Movie implements Parcelable {
             description = object.getString("overview");
             poster = object.getString("poster_path");
             language = object.getString("original_language");
+            backdrop = object.getString("backdrop_path");
+            popularity = object.getString("popularity");
+            voteCount = object.getString("vote_count");
+            voteAverage = object.getDouble("vote_average");
+
 
         } catch (JSONException e) {
             e.printStackTrace();

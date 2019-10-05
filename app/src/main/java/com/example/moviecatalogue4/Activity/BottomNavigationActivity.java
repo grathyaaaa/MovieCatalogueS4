@@ -31,6 +31,7 @@ public class BottomNavigationActivity extends AppCompatActivity implements Botto
 
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
         if (savedInstanceState == null) {
             bottomNavigationView.setSelectedItemId(R.id.navigation_movie);
             fragment = new MovieFragment();
@@ -75,10 +76,14 @@ public class BottomNavigationActivity extends AppCompatActivity implements Botto
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_change_language) {
-            Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-            startActivity(mIntent);
-            return true;
+        switch (item.getItemId()){
+            case R.id.menu_change_language :
+                Intent intentLanguage = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(intentLanguage);
+
+            case R.id.menu_setting_reminder :
+                Intent intentRemainder = new Intent(this, SetReminderActivity.class);
+                startActivity(intentRemainder);
         }
         return super.onOptionsItemSelected(item);
     }

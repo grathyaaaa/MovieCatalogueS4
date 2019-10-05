@@ -13,6 +13,52 @@ public class TvShow implements Parcelable {
     private String release_date;
     private String original_language;
     private String poster;
+    private String backdrop;
+
+    public String getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(String popularity) {
+        this.popularity = popularity;
+    }
+
+    public String getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(String voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public double getVoteAverage() {
+        return voteAverage;
+    }
+
+    public void setVoteAverage(double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    private String popularity;
+    private String voteCount;
+    private double voteAverage;
+    private double rating;
+
+    public String getBackdrop() {
+        return backdrop;
+    }
+
+    public void setBackdrop(String backdrop) {
+        this.backdrop = backdrop;
+    }
 
     public String getId() {
         return id;
@@ -69,7 +115,11 @@ public class TvShow implements Parcelable {
         release_date = in.readString();
         original_language = in.readString();
         poster = in.readString();
-
+        backdrop = in.readString();
+        popularity = in.readString();
+        voteAverage = in.readDouble();
+        voteCount = in.readString();
+        rating = in.readDouble();
     }
 
     public TvShow() {
@@ -100,6 +150,11 @@ public class TvShow implements Parcelable {
         dest.writeString(release_date);
         dest.writeString(original_language);
         dest.writeString(poster);
+        dest.writeString(backdrop);
+        dest.writeString(voteCount);
+        dest.writeDouble(voteAverage);
+        dest.writeString(popularity);
+        dest.writeDouble(rating);
     }
 
     public TvShow(JSONObject object) {
@@ -110,6 +165,10 @@ public class TvShow implements Parcelable {
             release_date = object.getString("first_air_date");
             original_language = object.getString("original_language");
             poster = object.getString("poster_path");
+            backdrop = object.getString("backdrop_path");
+            popularity = object.getString("popularity");
+            voteCount = object.getString("vote_count");
+            voteAverage = object.getDouble("vote_average");
 
         } catch (JSONException e) {
             e.printStackTrace();

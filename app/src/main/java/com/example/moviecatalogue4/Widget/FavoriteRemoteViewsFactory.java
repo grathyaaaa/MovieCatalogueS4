@@ -25,12 +25,11 @@ import io.realm.exceptions.RealmMigrationNeededException;
 
 public class FavoriteRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-//    public static final String EXTRA_ITEM = "EXTRA ITEM";
     private ArrayList<Movie> list;
     private Context context;
     private RealmResults<MovieFavorite> movieFavorites;
-
     private Realm realm;
+
     FavoriteRemoteViewsFactory(Context context1) {
         context = context1;
         list = new ArrayList<>();
@@ -56,9 +55,8 @@ public class FavoriteRemoteViewsFactory implements RemoteViewsService.RemoteView
         if (!movieFavorites.isEmpty()) {
             for (int i = 0; i < movieFavorites.size(); i++) {
                 Movie dummy = new Movie();
-                dummy.setId(movieFavorites.get(i).getId());
                 dummy.setTitle(movieFavorites.get(i).getTitle());
-                dummy.setPoster(movieFavorites.get(i).getPoster());
+                dummy.setBackdrop(movieFavorites.get(i).getBackdrop());
                 list.add(dummy);
             }
         }
@@ -85,15 +83,15 @@ public class FavoriteRemoteViewsFactory implements RemoteViewsService.RemoteView
         }
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_item);
         Bitmap bitmap = null;
-        String posterPath = list.get(position).getPoster();
+        String backdrop = list.get(position).getBackdrop();
         String title = list.get(position).getTitle();
-        Log.d("Widget Load",posterPath);
+        Log.d("Widget Load",backdrop);
         if (list.size() > 0) {
             try {
                 bitmap = Glide.with(context).
                         asBitmap().
-                        load(Api.getPoster(posterPath)).
-                        into(800, 600).get();
+                        load(Api.getBackdrop(backdrop)).
+                        into(1920, 1080).get();
                 Log.d("Widget Load","success");
             } catch (InterruptedException | ExecutionException e) {
                 Log.d("Widget Load", "error");

@@ -54,6 +54,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
 
         viewHolder.txtTitle.setText(getListMovie().get(position).getTitle());
         viewHolder.txtDescription.setText(getListMovie().get(position).getDescription());
+        viewHolder.txtDate.setText(getListMovie().get(position).getDate());
         String posterPath = getListMovie().get(position).getPoster();
         Glide.with(context).load(Api.getPoster(posterPath))
                 .apply(new RequestOptions().override(70, 100))
@@ -79,12 +80,14 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtTitle;
         TextView txtDescription;
+        TextView txtDate;
         ImageView imgPoster;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txt_title);
             txtDescription = itemView.findViewById(R.id.txt_description);
+            txtDate = itemView.findViewById(R.id.txt_date);
             imgPoster = itemView.findViewById(R.id.img_poster);
         }
     }

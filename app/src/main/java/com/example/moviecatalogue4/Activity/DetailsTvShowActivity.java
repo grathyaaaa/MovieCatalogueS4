@@ -1,6 +1,7 @@
 package com.example.moviecatalogue4.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.example.moviecatalogue4.Api.Api;
 import com.example.moviecatalogue4.R;
 import com.example.moviecatalogue4.Model.TvShow;
 import com.example.moviecatalogue4.Model.TvShowFavorite;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 public class DetailsTvShowActivity extends AppCompatActivity {
 
@@ -28,7 +31,12 @@ public class DetailsTvShowActivity extends AppCompatActivity {
     TextView tvOverview;
     TextView tvReleaseDate;
     TextView tvLanguage;
+    TextView tvVoteCount;
+    TextView tvVoteAverage;
+    TextView tvPopularity;
     ImageView ivPoster;
+    ImageView ivBackdrop;
+    RatingBar ratingBar;
     TvShow tvShow;
 
     private boolean isFavorite = false;
@@ -41,12 +49,26 @@ public class DetailsTvShowActivity extends AppCompatActivity {
     private String description;
     private String language;
     private String poster;
+    private String backdrop;
+    private String voteCount;
+    private double voteAverage;
+    private String popularity;
+    private double rating;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_tv_show);
 
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle("Detail Tv Show");
+
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.white));
+        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.transparent));
         try {
             Realm.init(this);
             realm = Realm.getDefaultInstance();
@@ -59,7 +81,12 @@ public class DetailsTvShowActivity extends AppCompatActivity {
         tvOverview = findViewById(R.id.tv_item_description);
         tvReleaseDate = findViewById(R.id.tv_item_date);
         tvLanguage = findViewById(R.id.tv_item_language);
+        tvPopularity = findViewById(R.id.tv_item_popularity);
+        tvVoteAverage = findViewById(R.id.tv_item_vote_average);
+        tvVoteCount = findViewById(R.id.tv_item_vote_count);
         ivPoster = findViewById(R.id.img_item_poster);
+        ivBackdrop = findViewById(R.id.img_backdrop);
+        ratingBar = findViewById(R.id.ratingBar);
 
 
         this.tvShow = getIntent().getParcelableExtra("TVSHOW");
@@ -69,15 +96,29 @@ public class DetailsTvShowActivity extends AppCompatActivity {
         this.date = tvShow.getRelease_date();
         this.language = tvShow.getOriginal_language();
         this.poster = tvShow.getPoster();
+        this.backdrop = tvShow.getBackdrop();
+        this.popularity = tvShow.getPopularity();
+        this.voteCount = tvShow.getVoteCount();
+        this.voteAverage = tvShow.getVoteAverage();
+        this.rating = tvShow.getRating();
 
         tvName.setText(tvShow.getName());
         tvOverview.setText(tvShow.getOverview());
         tvReleaseDate.setText(tvShow.getRelease_date());
         tvLanguage.setText(tvShow.getOriginal_language());
+        tvVoteCount.setText(tvShow.getVoteCount());
+        tvVoteAverage.setText(String.valueOf(voteAverage));
+        tvPopularity.setText(tvShow.getPopularity());
         Glide.with(this)
                 .load(Api.getPoster(tvShow.getPoster()))
                 .apply(new RequestOptions().override(600, 900))
                 .into(ivPoster);
+        Glide.with(this)
+                .load(Api.getBackdrop(tvShow.getBackdrop()))
+                .apply(new RequestOptions().override(1920, 1080))
+                .into(ivBackdrop);
+        float rate = (float) (tvShow.getVoteAverage() / 10) * 5;
+        ratingBar.setRating(rate);
     }
 
     @Override
@@ -131,6 +172,11 @@ public class DetailsTvShowActivity extends AppCompatActivity {
         tvShowFavorite.setDate(this.date);
         tvShowFavorite.setLanguage(this.language);
         tvShowFavorite.setPoster(this.poster);
+        tvShowFavorite.setBackdrop(this.backdrop);
+        tvShowFavorite.setPopularity(this.popularity);
+        tvShowFavorite.setVoteAverage(this.voteAverage);
+        tvShowFavorite.setVoteCount(this.voteCount);
+        tvShowFavorite.setRating(this.rating);
 
         realm = Realm.getDefaultInstance();
         TvShowFavorite tvShowFavorites = realm.where(TvShowFavorite.class).equalTo("id", this.id).findFirst();

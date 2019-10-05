@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -20,6 +22,7 @@ import com.example.moviecatalogue4.Api.Api;
 import com.example.moviecatalogue4.Model.Movie;
 import com.example.moviecatalogue4.Model.MovieFavorite;
 import com.example.moviecatalogue4.R;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 
 public class DetailsMovieActivity extends AppCompatActivity {
@@ -29,7 +32,12 @@ public class DetailsMovieActivity extends AppCompatActivity {
     TextView tvDescription;
     TextView tvDate;
     TextView tvLanguage;
+    TextView tvPopularity;
+    TextView tvVoteCount;
+    TextView tvVoteAverage;
     ImageView ivPoster;
+    ImageView ivBackdrop;
+    RatingBar ratingBar;
     Movie movie;
 
     private boolean isFavorite = false;
@@ -42,11 +50,25 @@ public class DetailsMovieActivity extends AppCompatActivity {
     private String description;
     private String language;
     private String poster;
+    private String backdrop;
+    private String voteCount;
+    private double voteAverage;
+    private String popularity;
+    private double rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_movie);
+
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle("Detail Movie");
+
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.white));
+        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.transparent));
 
         try {
             Realm.init(this);
@@ -60,7 +82,12 @@ public class DetailsMovieActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tv_item_description);
         tvDate = findViewById(R.id.tv_item_date);
         tvLanguage = findViewById(R.id.tv_item_language);
+        tvPopularity = findViewById(R.id.tv_item_popularity);
+        tvVoteAverage = findViewById(R.id.tv_item_vote_average);
+        tvVoteCount = findViewById(R.id.tv_item_vote_count);
         ivPoster = findViewById(R.id.img_item_poster);
+        ivBackdrop = findViewById(R.id.img_backdrop);
+        ratingBar = findViewById(R.id.ratingBar);
 
         this.movie = getIntent().getParcelableExtra("MOVIE");
         this.id = movie.getId();
@@ -69,17 +96,29 @@ public class DetailsMovieActivity extends AppCompatActivity {
         this.date = movie.getDate();
         this.language = movie.getLanguage();
         this.poster = movie.getPoster();
+        this.backdrop = movie.getBackdrop();
+        this.popularity = movie.getPopularity();
+        this.voteCount = movie.getVoteCount();
+        this.voteAverage = movie.getVoteAverage();
+        this.rating = movie.getRating();
 
-//        item = getIntent().getParcelableExtra(EXTRA_ITEM);
 
         tvTitle.setText(movie.getTitle());
         tvDescription.setText(movie.getDescription());
         tvDate.setText(movie.getDate());
         tvLanguage.setText(movie.getLanguage());
+        tvVoteCount.setText(movie.getVoteCount());
+        tvVoteAverage.setText(String.valueOf(voteAverage));
+        tvPopularity.setText(movie.getPopularity());
         Glide.with(this)
                 .load(Api.getPoster(movie.getPoster()))
                 .apply(new RequestOptions().override(600, 900))
                 .into(ivPoster);
+        Glide.with(this)
+                .load(Api.getBackdrop(movie.getBackdrop()))
+                .into(ivBackdrop);
+        float rate = (float) (movie.getVoteAverage() / 10) * 5;
+        ratingBar.setRating(rate);
     }
 
     @Override
@@ -133,6 +172,11 @@ public class DetailsMovieActivity extends AppCompatActivity {
         movieFavorite.setDate(this.date);
         movieFavorite.setLanguage(this.language);
         movieFavorite.setPoster(this.poster);
+        movieFavorite.setBackdrop(this.backdrop);
+        movieFavorite.setPopularity(this.popularity);
+        movieFavorite.setVoteAverage(this.voteAverage);
+        movieFavorite.setVoteCount(this.voteCount);
+        movieFavorite.setRating(this.rating);
 
         realm = Realm.getDefaultInstance();
         MovieFavorite puppies = realm.where(MovieFavorite.class).equalTo("id", this.id).findFirst();

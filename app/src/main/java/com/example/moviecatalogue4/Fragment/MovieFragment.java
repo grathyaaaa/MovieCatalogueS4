@@ -110,7 +110,6 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
         new MovieAsyncTask().execute(url);
     }
 
-
     @Override
     public boolean onQueryTextSubmit(String query) {
         searchView.clearFocus();
@@ -130,6 +129,7 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
         listMovieAdapter.setListMovie(listMovies);
         return true;
     }
+
     private class MovieAsyncTask extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -150,6 +150,7 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
             }
             return result;
         }
+
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -159,7 +160,6 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
                 tempMovie.clear();
                 JSONObject jsonObject = new JSONObject(s);
                 JSONArray jsonArray = jsonObject.getJSONArray("results");
-
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject object = jsonArray.getJSONObject(i);
                     Movie movie = new Movie(object);
@@ -171,7 +171,5 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
             }
             listMovieAdapter.setListMovie(listMovies);
         }
-
     }
-
 }

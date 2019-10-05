@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.MovieFavoriteFragment"
-    android:paddingTop="60dp">
+    android:paddingTop="60dp"
+    tools:context=".Fragment.MovieFavoriteFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ProgressBar
@@ -17,7 +17,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_movie_fav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
 </FrameLayout>
