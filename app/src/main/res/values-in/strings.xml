@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_failed">Gagal menambahkan ke favorite</string>
+    <string name="add_to_favorite">Menambahkan ke favorite</string>
+    <string name="add_widget">Tambah Widget</string>
+    <string name="appwidget_text">Contoh</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="daily_reminder_off">Pengingat harian dimatikan</string>
+    <string name="daily_reminder_on">Pengingat harian aktif</string>
+    <string name="delete_failed">Gagal menghapus dari Favorit</string>
+    <string name="delete_from_favorite">Menghapus dari Favorit</string>
+    <string name="description">Deskripsi</string>
+    <string name="detail_movie">Rincian Film</string>
+    <string name="enable_daily_reminder">Aktifkan pengingat harian</string>
+    <string name="enable_release_reminder">Aktifkan pengingat film baru</string>
+    <string name="genre">Aliran</string>
+    <string name="message_daily_remainder">Pengingay film Harian</string>
+    <string name="messages_header">Pesan</string>
+    <string name="name_language">Bahasa</string>
+    <string name="no_data">Tidak ada data</string>
+    <string name="original_language">Bahasa asli</string>
+    <string name="overview">Peninjauan</string>
+    <string name="popularity">Kepopuleran</string>
+    <string name="poster">Poster</string>
+    <string name="rating">Peringkat</string>
+    <string name="release_date">Tanggal rilis</string>
+    <string name="release_reminder">Pengingat tanggal rilis</string>
+    <string name="release_reminder_off">Pengingat dimatikan</string>
+    <string name="release_reminder_on">Pengingat diaktifkan</string>
+    <string name="search">Pencarian</string>
+    <string name="setting_reminder">Pengaturan pengingat</string>
+    <string name="signature_title">Tanda tangan anda</string>
+    <string name="switching_on_release_reminder">Mengaktifkan Pengingat Rilis</string>
+    <string name="sync_header">Sinkronkan</string>
+    <string name="sync_title">Sinkronkan email secara berkala</string>
+    <string name="title_activity_settings">Pengaturan</string>
+    <string name="title_daily">Pengingat Harian</string>
+    <string name="title_favorited">Favorit</string>
+    <string name="reply_title">Tindakan balasan default</string>
+    <string name="vote_average">Rata-rata suara</string>
+    <string name="vote_count">Penghitungan suara</string>
+    <string name="attachment_summary_off">Hanya unduh lampiran saat diminta secara manual</string>
+    <string name="attachment_summary_on">Secara otomatis mengunduh lampiran untuk email yang masuk</string>
+    <string name="attachment_title">Unduh lampiran yang masuk</string>
+    <string name="key_daily_remainder">Pengingat harian</string>
+</resources>
