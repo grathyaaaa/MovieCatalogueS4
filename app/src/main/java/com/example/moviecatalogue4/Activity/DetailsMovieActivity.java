@@ -40,10 +40,10 @@ public class DetailsMovieActivity extends AppCompatActivity {
     RatingBar ratingBar;
     Movie movie;
 
+    RealmResults<MovieFavorite> realmResults;
     private boolean isFavorite = false;
     private Menu menuItem;
     private Realm realm;
-    RealmResults<MovieFavorite> realmResults;
     private String id;
     private String title;
     private String date;
@@ -52,8 +52,8 @@ public class DetailsMovieActivity extends AppCompatActivity {
     private String poster;
     private String backdrop;
     private String voteCount;
-    private double voteAverage;
     private String popularity;
+    private double voteAverage;
     private double rating;
 
     @Override
@@ -101,7 +101,6 @@ public class DetailsMovieActivity extends AppCompatActivity {
         this.voteCount = movie.getVoteCount();
         this.voteAverage = movie.getVoteAverage();
         this.rating = movie.getRating();
-
 
         tvTitle.setText(movie.getTitle());
         tvDescription.setText(movie.getDescription());

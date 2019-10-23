@@ -131,7 +131,6 @@ public class MovieFragment extends Fragment implements SearchView.OnQueryTextLis
     }
 
     private class MovieAsyncTask extends AsyncTask<URL, Void, String> {
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();

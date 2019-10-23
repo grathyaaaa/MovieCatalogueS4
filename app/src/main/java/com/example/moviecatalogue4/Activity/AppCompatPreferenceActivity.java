@@ -39,8 +39,6 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         return getDelegate().getSupportActionBar();
     }
 
-
-
     @NonNull
     @Override
     public MenuInflater getMenuInflater() {

@@ -33,12 +33,13 @@ public class DailyAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String appName = context.getString(R.string.app_name);
-        String message = context.getString(R.string.message_daily_remainder);
+        String message = context.getString(R.string.message_daily_reminder);
         Log.e("onReceive Daily ", "yes");
         showAlarmNotification(context, appName, message, NOTIFICATION);
     }
 
     private void showAlarmNotification(Context context, String title, String message, int notificationId){
+        String NOTIFICATION_CHANNEL_NAME = "NOTIFICATION_CHANNEL_NAME";
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Uri alarmRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -52,7 +53,7 @@ public class DailyAlarmReceiver extends BroadcastReceiver {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL, "NOTIFICATION_CHANNEL_NAME", importance);
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_CHANNEL_NAME, importance);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.enableVibration(true);
@@ -66,6 +67,7 @@ public class DailyAlarmReceiver extends BroadcastReceiver {
     }
 
     public void setRepeatingAlarm(Context context){
+        String DAILY_SETUP = "Daily alarm set up";
         cancelAlarm(context);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -90,7 +92,7 @@ public class DailyAlarmReceiver extends BroadcastReceiver {
                     calendar.getTimeInMillis(), getPendingIntent(context));
         }
 
-        Toast.makeText(context, "Daily alarm set up", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, DAILY_SETUP, Toast.LENGTH_SHORT).show();
     }
 
     public void cancelAlarm(Context context) {

@@ -4,7 +4,6 @@
     <string name="add_to_favorite">Menambahkan ke favorite</string>
     <string name="add_widget">Tambah Widget</string>
     <string name="appwidget_text">Contoh</string>
-    <string name="daily_reminder">Pengingat Harian</string>
     <string name="daily_reminder_off">Pengingat harian dimatikan</string>
     <string name="daily_reminder_on">Pengingat harian aktif</string>
     <string name="delete_failed">Gagal menghapus dari Favorit</string>
@@ -14,7 +13,6 @@
     <string name="enable_daily_reminder">Aktifkan pengingat harian</string>
     <string name="enable_release_reminder">Aktifkan pengingat film baru</string>
     <string name="genre">Aliran</string>
-    <string name="message_daily_remainder">Pengingay film Harian</string>
     <string name="messages_header">Pesan</string>
     <string name="name_language">Bahasa</string>
     <string name="no_data">Tidak ada data</string>
@@ -23,8 +21,6 @@
     <string name="popularity">Kepopuleran</string>
     <string name="poster">Poster</string>
     <string name="rating">Peringkat</string>
-    <string name="release_date">Tanggal rilis</string>
-    <string name="release_reminder">Pengingat tanggal rilis</string>
     <string name="release_reminder_off">Pengingat dimatikan</string>
     <string name="release_reminder_on">Pengingat diaktifkan</string>
     <string name="search">Pencarian</string>
@@ -42,5 +38,4 @@
     <string name="attachment_summary_off">Hanya unduh lampiran saat diminta secara manual</string>
     <string name="attachment_summary_on">Secara otomatis mengunduh lampiran untuk email yang masuk</string>
     <string name="attachment_title">Unduh lampiran yang masuk</string>
-    <string name="key_daily_remainder">Pengingat harian</string>
 </resources>

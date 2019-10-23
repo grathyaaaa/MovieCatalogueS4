@@ -45,7 +45,6 @@ public class TvShowFragment extends Fragment implements SearchView.OnQueryTextLi
     private ListTvShowAdapter listTvShowAdapter;
     private SearchView searchView;
 
-
     public TvShowFragment() {
         // Required empty public constructor
     }

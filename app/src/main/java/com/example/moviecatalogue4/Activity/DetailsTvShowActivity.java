@@ -39,10 +39,10 @@ public class DetailsTvShowActivity extends AppCompatActivity {
     RatingBar ratingBar;
     TvShow tvShow;
 
+    RealmResults<TvShowFavorite> realmResults;
     private boolean isFavorite = false;
     private Menu menuItem;
     private Realm realm;
-    RealmResults<TvShowFavorite> realmResults;
     private String id;
     private String title;
     private String date;
@@ -51,8 +51,8 @@ public class DetailsTvShowActivity extends AppCompatActivity {
     private String poster;
     private String backdrop;
     private String voteCount;
-    private double voteAverage;
     private String popularity;
+    private double voteAverage;
     private double rating;
 
 
@@ -88,7 +88,6 @@ public class DetailsTvShowActivity extends AppCompatActivity {
         ivBackdrop = findViewById(R.id.img_backdrop);
         ratingBar = findViewById(R.id.ratingBar);
 
-
         this.tvShow = getIntent().getParcelableExtra("TVSHOW");
         this.id = tvShow.getId();
         this.title = tvShow.getName();
@@ -115,7 +114,6 @@ public class DetailsTvShowActivity extends AppCompatActivity {
                 .into(ivPoster);
         Glide.with(this)
                 .load(Api.getBackdrop(tvShow.getBackdrop()))
-                .apply(new RequestOptions().override(1920, 1080))
                 .into(ivBackdrop);
         float rate = (float) (tvShow.getVoteAverage() / 10) * 5;
         ratingBar.setRating(rate);

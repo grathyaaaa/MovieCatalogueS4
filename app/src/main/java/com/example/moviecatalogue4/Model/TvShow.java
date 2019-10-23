@@ -169,7 +169,6 @@ public class TvShow implements Parcelable {
             popularity = object.getString("popularity");
             voteCount = object.getString("vote_count");
             voteAverage = object.getDouble("vote_average");
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

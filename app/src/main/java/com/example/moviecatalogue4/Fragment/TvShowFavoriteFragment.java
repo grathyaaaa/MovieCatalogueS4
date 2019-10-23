@@ -78,6 +78,11 @@ public class TvShowFavoriteFragment extends Fragment {
                 dummy.setRelease_date(tvShowFavorites.get(i).getDate());
                 dummy.setOriginal_language(tvShowFavorites.get(i).getLanguage());
                 dummy.setPoster(tvShowFavorites.get(i).getPoster());
+                dummy.setBackdrop(tvShowFavorites.get(i).getBackdrop());
+                dummy.setPopularity(tvShowFavorites.get(i).getPopularity());
+                dummy.setRating(tvShowFavorites.get(i).getRating());
+                dummy.setVoteAverage(tvShowFavorites.get(i).getVoteAverage());
+                dummy.setVoteCount(tvShowFavorites.get(i).getVoteCount());
                 tvShowArrayList.add(dummy);
             }
         }

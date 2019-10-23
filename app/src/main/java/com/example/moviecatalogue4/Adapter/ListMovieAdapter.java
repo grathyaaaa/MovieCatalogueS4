@@ -23,15 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.ViewHolder> {
     private Context context;
-    private ArrayList<Movie> listMovie;
+
+    private Context getContext() {
+        return context;
+    }
 
     public ListMovieAdapter(Context context) {
         this.context = context;
     }
 
-    private Context getContext() {
-        return context;
-    }
+    private ArrayList<Movie> listMovie;
 
     public ArrayList<Movie> getListMovie() {
         return listMovie;
@@ -59,7 +60,6 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
         Glide.with(context).load(Api.getPoster(posterPath))
                 .apply(new RequestOptions().override(70, 100))
                 .into(viewHolder.imgPoster);
-
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +91,5 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
             imgPoster = itemView.findViewById(R.id.img_poster);
         }
     }
-    public interface OnItemClickCallback {
-        void onClicked(View v, Movie item, int position);
-    }
+
 }

@@ -49,7 +49,6 @@ public class MovieFavorite extends RealmObject {
         this.voteCount = voteCount;
     }
 
-
     public String getBackdrop() {
         return backdrop;
     }
@@ -105,6 +104,5 @@ public class MovieFavorite extends RealmObject {
     public void setPoster(String poster) {
         this.poster = poster;
     }
-
 
 }

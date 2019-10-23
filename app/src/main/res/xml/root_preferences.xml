@@ -14,16 +14,16 @@
   ~ limitations under the License.
   -->
 
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreference
-        app:defaultValue="false"
-        app:key="@string/daily_reminder"
-        app:title="@string/enable_daily_reminder" />
+        android:defaultValue="false"
+        android:key="@string/daily_reminder"
+        android:title="@string/enable_daily_reminder" />
 
     <SwitchPreference
-        app:defaultValue="false"
-        app:key="@string/release_reminder"
-        app:title="@string/enable_release_reminder" />
+        android:defaultValue="false"
+        android:key="@string/release_reminder"
+        android:title="@string/enable_release_reminder" />
 
 </PreferenceScreen>

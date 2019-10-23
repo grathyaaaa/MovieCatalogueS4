@@ -29,7 +29,6 @@ public class ReleaseAlarmReceiver extends BroadcastReceiver {
     private static final int NOTIFICATION = 102;
     private static final  String NOTIFICATION_CHANNEL = "102";
     private static int notificationId = 2;
-
     private static final String INTENT_ID = "intent_id";
     private static final String INTENT_TITLE = "intent_title";
 
@@ -38,15 +37,18 @@ public class ReleaseAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String NOTIF_ID = "NotifId";
         int notifId = intent.getIntExtra(INTENT_ID, 0);
-        Log.e("NotifId", String.valueOf(notifId));
+        Log.e(NOTIF_ID, String.valueOf(notifId));
         String title = intent.getStringExtra(INTENT_TITLE);
-        Log.e("NotifId", title);
+        Log.e(NOTIF_ID, title);
         showAlarmNotification(context, title, notifId);
     }
 
     public void showAlarmNotification(Context context, String title, int notifId){
         String message = "Movie Release Today";
+        String NOTIFICATION_CHANNEL_NAME = "NOTIFICATION_CHANNEL_NAME";
+
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Intent intent = new Intent(context, BottomNavigationView.class);
@@ -66,7 +68,7 @@ public class ReleaseAlarmReceiver extends BroadcastReceiver {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL, "NOTIFICATION_CHANNEL_NAME", importance);
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL, NOTIFICATION_CHANNEL_NAME, importance);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.enableVibration(true);
@@ -75,22 +77,23 @@ public class ReleaseAlarmReceiver extends BroadcastReceiver {
             builder.setChannelId(NOTIFICATION_CHANNEL);
             notificationManager.createNotificationChannel(notificationChannel);
         }
-
         notificationManager.notify(notifId, builder.build());
     }
 
     public void setRepeatingAlarm(Context context, List<Movie> movies){
         int delay = 0;
+        String TITLE = "title";
+        String RELEASE_SETUP = "Release alarm set up";
+
         for(Movie movie: movies){
             cancelAlarm(context);
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(context, ReleaseAlarmReceiver.class);
             intent.putExtra(INTENT_TITLE, movie.getTitle());
-            Log.e("title", movie.getTitle());
+            Log.e(TITLE, movie.getTitle());
             intent.putExtra(INTENT_ID, notificationId);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
 
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, 8);
@@ -99,35 +102,25 @@ public class ReleaseAlarmReceiver extends BroadcastReceiver {
 
             int SDK_INT = Build.VERSION.SDK_INT;
             if (SDK_INT < Build.VERSION_CODES.KITKAT) {
-                alarmManager.set(AlarmManager.RTC_WAKEUP,
-                        calendar.getTimeInMillis() + delay, pendingIntent);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + delay, pendingIntent);
             } else if (SDK_INT > Build.VERSION_CODES.KITKAT && SDK_INT < Build.VERSION_CODES.M) {
-                alarmManager.setInexactRepeating(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.getTimeInMillis() + delay,
-                        AlarmManager.INTERVAL_DAY,
-                        pendingIntent
-                );
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + delay, AlarmManager.INTERVAL_DAY, pendingIntent);
             } else if (SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
-                        calendar.getTimeInMillis() + delay, pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() + delay, pendingIntent);
             }
-
             notificationId += 1;
             delay += 5000;
         }
-        Toast.makeText(context, "Release alarm set up", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, RELEASE_SETUP, Toast.LENGTH_SHORT).show();
     }
 
     public void cancelAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
         alarmManager.cancel(getPendingIntent(context));
     }
 
     private static PendingIntent getPendingIntent(Context context) {
         Intent alarmIntent = new Intent(context, ReleaseAlarmReceiver.class);
-
         return PendingIntent.getBroadcast(context, NOTIFICATION, alarmIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
     }

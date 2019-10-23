@@ -38,7 +38,6 @@ public class FavoriteRemoteViewsFactory implements RemoteViewsService.RemoteView
     @Override
     public void onCreate() {
 
-
     }
 
     @Override
@@ -50,7 +49,7 @@ public class FavoriteRemoteViewsFactory implements RemoteViewsService.RemoteView
             Realm.deleteRealm(realm.getDefaultConfiguration());
             realm = Realm.getDefaultInstance();
         }
-        //Toast.makeText(context,"test",Toast.LENGTH_SHORT).show();
+
         movieFavorites = realm.where(MovieFavorite.class).findAll();
         if (!movieFavorites.isEmpty()) {
             for (int i = 0; i < movieFavorites.size(); i++) {
@@ -81,11 +80,14 @@ public class FavoriteRemoteViewsFactory implements RemoteViewsService.RemoteView
             Realm.deleteRealm(realm.getDefaultConfiguration());
             realm = Realm.getDefaultInstance();
         }
+
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_item);
         Bitmap bitmap = null;
         String backdrop = list.get(position).getBackdrop();
         String title = list.get(position).getTitle();
+
         Log.d("Widget Load",backdrop);
+
         if (list.size() > 0) {
             try {
                 bitmap = Glide.with(context).
@@ -100,9 +102,9 @@ public class FavoriteRemoteViewsFactory implements RemoteViewsService.RemoteView
             remoteViews.setTextViewText(R.id.fav_title, title);
         }
 
-
         Bundle extras = new Bundle();
         extras.putInt(FavoriteMovieWidget.EXTRA_ITEM, position);
+
         Intent fillInIntent = new Intent();
         fillInIntent.putExtras(extras);
 

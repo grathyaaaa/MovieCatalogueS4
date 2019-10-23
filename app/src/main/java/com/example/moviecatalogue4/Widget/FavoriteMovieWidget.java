@@ -38,17 +38,17 @@ public class FavoriteMovieWidget extends AppWidgetProvider {
 
         PendingIntent toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent);
-        // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        String TOUCHED_VIEW = "Touched View";
         super.onReceive(context, intent);
         if (intent.getAction() != null) {
             if (intent.getAction().equals(TOAST_ACTION)) {
                 int viewIndex = intent.getIntExtra(FavoriteMovieWidget.EXTRA_ITEM, 0);
-                Toast.makeText(context, "Touched View" + viewIndex, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, TOUCHED_VIEW + viewIndex, Toast.LENGTH_SHORT).show();
             }
         }
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);

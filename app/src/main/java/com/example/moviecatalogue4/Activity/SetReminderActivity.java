@@ -39,15 +39,18 @@ public class SetReminderActivity extends AppCompatPreferenceActivity {
     private static ReleaseAlarmReceiver releaseAlarmReceiver;
     private static Context context;
     private static List<Movie> listMovie;
+    private static String DAILY_REMINDER = "daily_reminder";
+    private static String RELEASE_REMINDER = "daily_reminder";
 
-    private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
+
+    private static Preference.OnPreferenceChangeListener onPreferenceChangeListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             boolean booleanValue = (boolean) value;
 
             String key = preference.getKey();
-            String daily = "daily_remainder";
-            String release = "release_remainder";
+            String daily = DAILY_REMINDER;
+            String release = RELEASE_REMINDER;
             if (key.equals(daily) ) {
                 if(booleanValue) {
                     dailyAlarmReceiver.setRepeatingAlarm(getAppContext());
@@ -73,10 +76,9 @@ public class SetReminderActivity extends AppCompatPreferenceActivity {
     }
 
     private static void bindPreferenceSummaryToValue(Preference preference) {
-        preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
-
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager.getDefaultSharedPreferences(preference.getContext())
+        preference.setOnPreferenceChangeListener(onPreferenceChangeListener);
+        onPreferenceChangeListener.onPreferenceChange(preference
+                , PreferenceManager.getDefaultSharedPreferences(preference.getContext())
                         .getBoolean(preference.getKey(), false));
     }
 
@@ -88,10 +90,9 @@ public class SetReminderActivity extends AppCompatPreferenceActivity {
         dailyAlarmReceiver = new DailyAlarmReceiver();
         releaseAlarmReceiver = new ReleaseAlarmReceiver();
         context = getApplicationContext();
-
         listMovie = new ArrayList<>();
-
-        this.getFragmentManager().beginTransaction().replace(android.R.id.content , new RemainderPreferenceFragment()).commit();
+        this.getFragmentManager().beginTransaction().replace(android.R.id.content
+                , new RemainderPreferenceFragment()).commit();
     }
 
     public static Context getAppContext(){
@@ -120,11 +121,12 @@ public class SetReminderActivity extends AppCompatPreferenceActivity {
     }
 
     public static void setRepeatingAlarm() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String DATE_FORMAT = "yyyy-MM-dd";
+        String CURRENT_DATE = "currentDate";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
         Date date = new Date();
         String currentDate = dateFormat.format(date);
-//        String currentDate = "2019-02-07";
-        Log.e("currentDate", currentDate);
+        Log.e(CURRENT_DATE, currentDate);
 
         URL url = Api.getUpComingMovie();
         new MovieAsyncTask(currentDate).execute(url);
@@ -137,11 +139,11 @@ public class SetReminderActivity extends AppCompatPreferenceActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.root_preferences);
 
-            Preference preference = findPreference("daily_remainder");
+            Preference preference = findPreference(DAILY_REMINDER);
             boolean isOn = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean(preference.getKey(), false);
 
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_daily_remainder)));
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_release_remainder)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_daily_reminder)));
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_release_reminder)));
 
             Log.e("onCreate", String.valueOf(isOn));
         }
@@ -178,7 +180,6 @@ public class SetReminderActivity extends AppCompatPreferenceActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             Log.e("data up", s);
 
             try {
@@ -188,9 +189,9 @@ public class SetReminderActivity extends AppCompatPreferenceActivity {
                 for (int i=0; i<jsonArray.length(); i++){
                     JSONObject object = jsonArray.getJSONObject(i);
                     Movie movie = new Movie(object);
-                    if(movie.getReleaseDate().equals(currentDate)){
+                    if(movie.getDate().equals(currentDate)){
                         listMovie.add(movie);
-                        Log.e("release date", movie.getReleaseDate());
+                        Log.e("release date", movie.getDate());
                     }
                 }
                 setAlarm(listMovie);

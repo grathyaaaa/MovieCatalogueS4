@@ -39,7 +39,6 @@ public class MovieFavoriteFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,13 +78,16 @@ public class MovieFavoriteFragment extends Fragment {
                 dummy.setLanguage(movieFavorites.get(i).getLanguage());
                 dummy.setPoster(movieFavorites.get(i).getPoster());
                 dummy.setBackdrop(movieFavorites.get(i).getBackdrop());
+                dummy.setPopularity(movieFavorites.get(i).getPopularity());
+                dummy.setRating(movieFavorites.get(i).getRating());
+                dummy.setVoteAverage(movieFavorites.get(i).getVoteAverage());
+                dummy.setVoteCount(movieFavorites.get(i).getVoteCount());
                 movieArrayList.add(dummy);
             }
         }
         progressBarFav.setVisibility(View.GONE);
         listMovieAdapter.setListMovie(movieArrayList);
     }
-
 
     private void showRecyclerList() {
         listMovieAdapter = new ListMovieAdapter(getActivity());
